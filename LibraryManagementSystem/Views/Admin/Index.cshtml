@@ -1,0 +1,43 @@
+﻿@model LibraryManagementSystem.ViewModels.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h1>Admin Dashboard</h1>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h5>Total Books</h5>
+                <p>@Model.TotalBooks</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h5>Total Users</h5>
+                <p>@Model.TotalUsers</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h5>Active Loans</h5>
+                <p>@Model.ActiveLoans</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h5>Overdue Loans</h5>
+                <p>@Model.OverdueLoans.Count()</p> <!-- Display count of overdue loans -->
+                <a asp-action="OverdueLoans" class="btn btn-primary">View Details</a>
+            </div>
+        </div>
+    </div>
+</div>

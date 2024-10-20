@@ -1,0 +1,24 @@
+﻿@model IEnumerable<LibraryManagementSystem.Models.Message>
+
+<h2>Your Messages</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Message</th>
+            <th>Sent Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var message in Model)
+
+        {
+            <tr>
+                <td>@message.Content</td>
+                <td>@message.SentDate.ToString("g")</td>
+                <td>@(message.IsRead ? "Read" : "Unread")</td>
+            </tr>
+        }
+    </tbody>
+</table>

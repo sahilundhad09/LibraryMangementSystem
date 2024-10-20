@@ -1,0 +1,37 @@
+﻿@model List<LibraryManagementSystem.Models.Book>
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<h1 class="text-info">Search Results</h1>
+<p class="text-secondary">Showing results for: @ViewData["SearchQuery"]</p>
+
+@if (Model.Any())
+
+{
+    <div class="row">
+        @foreach (var book in Model)
+
+        {
+            <div class="col-md-3 mb-4">
+                <div class="card bg-dark text-light border-light shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">@book.Title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@book.Author</h6>
+                        <p class="card-text">ISBN: @book.ISBN</p>
+                        <p class="card-text">@((book.IsAvailable) ? "Available" : "Not Available")</p>
+                        <a asp-controller="Books" asp-action="Details" asp-route-id="@book.Id" class="btn btn-outline-primary">Details</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+else
+
+{
+    <p class="text-warning">No books found matching your search criteria.</p>
+}
+
+<a asp-controller="Home" asp-action="Index" class="btn btn-secondary mt-4">Back to Home</a>

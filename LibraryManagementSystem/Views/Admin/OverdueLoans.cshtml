@@ -1,0 +1,34 @@
+﻿@model IEnumerable<LibraryManagementSystem.Models.Loan>
+
+@{
+    ViewData["Title"] = "Overdue Loans";
+}
+
+<h1>Overdue Loans</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Book</th>
+            <th>Loan Date</th>
+            <th>Due Date</th>
+            <th>Minutes Overdue</th>
+            <th>Fine Amount</th> <!-- Added Fine Amount column -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var loan in Model)
+
+        {
+            <tr>
+                <td>@loan.User.Username</td>
+                <td>@loan.Book.Title</td>
+                <td>@loan.LoanDate.ToShortDateString()</td>
+                <td>@loan.DueDate.ToShortDateString()</td>
+                <td>@loan.MinutesOverdue</td> <!-- Display overdue minutes -->
+                <td>@(loan.FineAmount.ToString("C"))</td> <!-- Display fine amount -->
+            </tr>
+        }
+    </tbody>
+</table>

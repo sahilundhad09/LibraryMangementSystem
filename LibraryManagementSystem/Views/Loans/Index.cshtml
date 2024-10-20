@@ -1,0 +1,52 @@
+﻿@model IEnumerable<LibraryManagementSystem.Models.Loan>
+
+@{
+    ViewData["Title"] = "My Loans";
+}
+
+<h1>My Loans</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Book Title</th>
+            <th>Loan Date</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var loan in Model)
+
+        {
+            <tr>
+                <td>@loan.Book.Title</td>
+                <td>@loan.LoanDate.ToShortDateString()</td>
+                <td>@loan.DueDate.ToShortDateString()</td>
+                <td>@loan.Status</td>
+                <td>
+                    @if (loan.ReturnDate == null)
+                    {
+                        <form asp-action="Return" method="post">
+                            <input type="hidden" name="loanId" value="@loan.Id" />
+                            <button type="submit" class="btn btn-sm btn-primary">Return</button>
+                        </form>
+                    }
+                    else if (loan.IsOverdue && !loan.IsFinePaid)
+                    {
+                        <p class="text-danger">Fine: $@loan.FineAmount.ToString("F2")</p>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (TempData["SuccessMessage"] != null)
+
+{
+    <div class="alert alert-success mt-3">
+        @TempData["SuccessMessage"]
+    </div>
+}

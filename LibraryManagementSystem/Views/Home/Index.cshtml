@@ -1,0 +1,39 @@
+﻿@model List<LibraryManagementSystem.Models.Book>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4 text-primary">Welcome to Acme Library</h1>
+    <p class="lead text-secondary">Discover your next great read with us.</p>
+</div>
+
+<div class="search-bar my-4">
+    <form asp-controller="Home" asp-action="Search" method="get">
+        <div class="input-group input-group-lg">
+            <input type="text" class="form-control" placeholder="Search for books..." name="query" />
+            <div class="input-group-append">
+                <button class="btn btn-outline-light bg-primary" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<h2 class="text-info mb-4">Featured Books</h2>
+<div class="row">
+    @foreach (var book in Model)
+
+    {
+        <div class="col-md-3 mb-4">
+            <div class="card bg-dark text-light border-light shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">@book.Title</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@book.Author</h6>
+                    <p class="card-text">ISBN: @book.ISBN</p>
+                    <p class="card-text">@((book.IsAvailable) ? "Available" : "Not Available")</p>
+                    <a asp-controller="Books" asp-action="Details" asp-route-id="@book.Id" class="btn btn-outline-primary">Details</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

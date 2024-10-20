@@ -1,0 +1,37 @@
+﻿@model LibraryManagementSystem.ViewModels.SendMessageViewModel
+
+<h2>Send Message to Users with Overdue Loans</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (Model.UsersWithOverdueLoans != null && Model.UsersWithOverdueLoans.Any())
+{
+    <form asp-action="SendMessage" method="post">
+        <div class="form-group">
+            <label asp-for="SelectedUserId"></label>
+            <select asp-for="SelectedUserId" class="form-control" asp-items="@(new SelectList(Model.UsersWithOverdueLoans, "Id", "Username"))">
+                <option value="">-- Select User --</option>
+            </select>
+            <span asp-validation-for="SelectedUserId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="MessageContent"></label>
+            <textarea asp-for="MessageContent" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="MessageContent" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+}
+else
+{
+    <p>No users with overdue loans available to send a message.</p>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
